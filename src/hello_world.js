@@ -4,10 +4,16 @@ var data_2 = [
 ];
 var CommentBox = React.createClass({
   getInitialState: function(){
-    return {data:[]};
+    return {data:data_2};
   },
   componentDidMount:function(){
     this.setState({data:data_2});
+  },
+  handleCommentSubmit: function(comment){
+    var data = this.state.data;
+    comment.id = Date.now();
+    data.push(comment);
+    this.setState({data:data});
   },
 
   render: function(){
@@ -15,7 +21,7 @@ var CommentBox = React.createClass({
       <div className="commentBox">
         <h1>Comments</h1>
         <CommentList data={this.state.data}/>
-        <CommentForm />
+        <CommentForm onCommentSubmit={this.handleCommentSubmit}/>
       </div>);
     // return React.createElement('div', {className: 'commentBox'}, "hello world,");
   }
